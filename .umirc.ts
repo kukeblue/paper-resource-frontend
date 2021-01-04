@@ -1,6 +1,7 @@
 import { defineConfig } from 'umi';
 
 export default defineConfig({
+  title: "全科试卷后台",
   nodeModulesTransform: {
     type: 'none',
   },

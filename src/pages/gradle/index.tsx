@@ -1,7 +1,10 @@
 import React from 'react';
 import './index.less';
 import { ChTablePanel } from 'ch-ui';
-import { Button } from 'antd';
+import { Button, Tag } from 'antd';
+import { termType, TermType } from '@/config/common.data';
+
+
 
 export default () => {
 
@@ -22,6 +25,9 @@ export default () => {
         title: '上下学期',
         dataIndex: 'term',
         key: 'term',
+        render: (text: string)=>{
+          return <Tag>{(termType as any)[text]}</Tag>
+        }
       },
   ]
   return (
@@ -47,10 +53,10 @@ export default () => {
                         item.gradeId = record.id
                         console.log(item);
                     }}
-                    urlDelete='http://localhost:3000/api/gradeStep/delete'
-                    urlAdd='http://localhost:3000/api/gradeStep/add'
-                    urlUpdate='http://localhost:3000/api/gradeStep/edit'
-                    url='http://localhost:3000/api/gradeStep/list'
+                    urlDelete='/api/gradeStep/delete'
+                    urlAdd='/api/gradeStep/add'
+                    urlUpdate='/api/gradeStep/edit'
+                    url='/api/gradeStep/list'
                     query={{gradeId: record.id}}
                     columns={childColumns}
                     formData={
