@@ -36,7 +36,7 @@ export default () => {
             urlDelete='/api/grade/delete'
             urlAdd='/api/grade/add'
             urlUpdate='/api/grade/edit'
-            url='/api/grade/list'
+            url='/api/grade/page'
             columns={columns}
             formData={
                 [{
@@ -56,7 +56,7 @@ export default () => {
                     urlDelete='/api/gradeStep/delete'
                     urlAdd='/api/gradeStep/add'
                     urlUpdate='/api/gradeStep/edit'
-                    url='/api/gradeStep/list'
+                    url='/api/gradeStep/page'
                     query={{gradeId: record.id}}
                     columns={childColumns}
                     formData={
