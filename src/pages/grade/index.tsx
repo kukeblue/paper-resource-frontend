@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.less';
-import { ChTablePanel } from 'ch-ui';
+import { ChTablePanel, FormItemType } from 'ch-ui';
 import { Button, Tag } from 'antd';
 import { termType, TermType } from '@/config/common.data';
 
@@ -40,7 +40,7 @@ export default () => {
             columns={columns}
             formData={
                 [{
-                  type: 'input',
+                  type: FormItemType.input,
                   label: '名称',
                   name: 'name',
                   rules: [{ required: true, message: '请输入年级名称' }],
@@ -62,12 +62,12 @@ export default () => {
                     formData={
                         [
                             {
-                                type: 'input',
+                                type: FormItemType.input,
                                 label: '名称',
                                 name: 'name',
                                 rules: [{ required: true, message: '请输入年级名称' }],
                             },{
-                                type: 'radio-group',
+                                type: FormItemType.radioGroup,
                                 label: '学期',
                                 name: 'term',
                                 rules: [{ required: true, message: '请选择学期' }],
