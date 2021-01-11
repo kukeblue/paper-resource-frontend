@@ -16,72 +16,74 @@ export default () => {
     },
   ]
   const childColumns = [
-      {
-        title: '学期名称',
-        dataIndex: 'name',
-        key: 'name',
-      },
-      {
-        title: '上下学期',
-        dataIndex: 'term',
-        key: 'term',
-        render: (text: string)=>{
-          return <Tag>{(termType as any)[text]}</Tag>
-        }
-      },
+    {
+      title: '学期名称',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: '上下学期',
+      dataIndex: 'term',
+      key: 'term',
+      render: (text: string) => {
+        return <Tag>{(termType as any)[text]}</Tag>
+      }
+    },
   ]
   return (
     <div>
-      <ChTablePanel 
-            urlDelete='/api/grade/delete'
-            urlAdd='/api/grade/add'
-            urlUpdate='/api/grade/edit'
-            url='/api/grade/page'
-            columns={columns}
-            formData={
-                [{
-                  type: FormItemType.input,
-                  label: '名称',
-                  name: 'name',
-                  rules: [{ required: true, message: '请输入年级名称' }],
-               }]
-            }
-            expandable={{
-                expandedRowRender: (record:any) => <div>
-                 <ChTablePanel 
-                    onAddBefore={(item:any)=>{
-                        item.gradeId = record.id
-                        console.log(item);
-                    }}
-                    urlDelete='/api/gradeStep/delete'
-                    urlAdd='/api/gradeStep/add'
-                    urlUpdate='/api/gradeStep/edit'
-                    url='/api/gradeStep/page'
-                    query={{gradeId: record.id}}
-                    columns={childColumns}
-                    formData={
-                        [
-                            {
-                                type: FormItemType.input,
-                                label: '名称',
-                                name: 'name',
-                                rules: [{ required: true, message: '请输入年级名称' }],
-                            },{
-                                type: FormItemType.radioGroup,
-                                label: '学期',
-                                name: 'term',
-                                rules: [{ required: true, message: '请选择学期' }],
-                                initialValue: 'UP',
-                                options: [
-                                        { label: '上学期', value: 'UP' },
-                                        { label: '下学期', value: 'DOWN' },
-                                ]
-                            }
-                        ]
-                    }/>
-                </div>,
-            }}
-        />
+      <ChTablePanel
+        urlDelete='/api/grade/delete'
+        urlAdd='/api/grade/add'
+        urlUpdate='/api/grade/edit'
+        url='/api/grade/page'
+        columns={columns}
+        formData={
+          [{
+            type: FormItemType.input,
+            label: '名称',
+            name: 'name',
+            rules: [{ required: true, message: '请输入年级名称' }],
+          }]
+        }
+        expandable={{
+          expandedRowRender: (record: any) => <div>
+            <ChTablePanel
+              onAddBefore={(item: any) => {
+                item.gradeId = record.id
+                console.log(item);
+              }}
+              urlDelete='/api/gradeStep/delete'
+              urlAdd='/api/gradeStep/add'
+              urlUpdate='/api/gradeStep/edit'
+              url='/api/gradeStep/page'
+              query={{ gradeId: record.id }}
+              columns={childColumns}
+              formData={
+                [
+                  {
+                    type: FormItemType.input,
+                    label: '名称',
+                    name: 'name',
+                    rules: [{ required: true, message: '请输入年级名称' }],
+                  }, {
+                    type: FormItemType.radioGroup,
+                    label: '学期',
+                    name: 'term',
+                    rules: [{ required: true, message: '请选择学期' }],
+                    initialValue: 'UP',
+                    options: [
+                      { label: '上学期', value: 'UP' },
+                      { label: '下学期', value: 'DOWN' },
+                    ]
+                  }
+                ]
+              }
+            />
+          </div>,
+        }
+        }
+      />
     </div>
   );
 }
