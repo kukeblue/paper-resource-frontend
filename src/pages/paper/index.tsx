@@ -69,6 +69,27 @@ export default () => {
                 rules: [
                   { required: true, message: '请输入学期名称' }
                 ],
+              },
+              {
+                type: FormItemType.upload,
+                label: '上传接口',
+                name: 'file',
+                uploadUrl: '/api/upload/file',
+                rules: [{ required: true, message: '文件上传失败', validator: 
+                  (rule, value, callback) => {
+                      try {
+                          if(value[0].response)  {
+                             if(value[0].response.status == 0) {
+                               console.log('debug: 单文件上传成功！')
+                             }else {
+                               callback('文件上传失败！');
+                             }
+                          }
+                      } catch (err) {
+                          callback(err);
+                      }
+                  }
+                }],
               }
               ]
             }
