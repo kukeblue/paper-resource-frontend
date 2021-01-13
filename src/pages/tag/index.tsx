@@ -6,11 +6,23 @@ import { termType, TermType } from '@/config/common.data';
 import { ChUtils } from 'ch-ui'
 const { chHooks } = ChUtils
 
+interface Tag {
+    id: string;
+    name: string;
+    tagTypeId: string;
+    gradeIds: string[];
+    subjectIds: string[];
+}
 
 export default () => {
-
-    const { options: gradeOptions } = chHooks.useOptionFormListHook({url:"/api/grade/list"})
-    const { options: subjectOptions } = chHooks.useOptionFormListHook({url:"/api/subject/list"})
+    const { 
+        options: gradeOptions,
+        optionsMap: gradeOptionsMap, 
+     } = chHooks.useOptionFormListHook({url:"/api/grade/list"})
+    const { 
+        options: subjectOptions,
+        optionsMap: subjectOptionsMap,
+    } = chHooks.useOptionFormListHook({url:"/api/subject/list"})
 
     const columns = [
         {
@@ -27,14 +39,30 @@ export default () => {
             key: 'name',
         },
         {
-            title: '资源类目',
+            title: '所属类目',
             dataIndex: 'gradeIds',
             key: 'gradeIds',
+            render: (_: string ,record: Tag)=>{
+                console.log('gradeOptionsMap', gradeOptionsMap)
+                return <div className='flex'>
+                    {record.gradeIds.map(gradeId=>{
+                        return <div className='m-r-5' key={gradeId}>{gradeOptionsMap[gradeId].name}</div>
+                    })}
+                </div>
+            }
         },
         {
             title: '学科',
             dataIndex: 'subjectIds',
             key: 'subjectIds',
+            render: (_: string ,record: Tag)=>{
+                console.log('gradeOptionsMap', gradeOptionsMap)
+                return <div className='flex'>
+                    {record.subjectIds.map(subjectId=>{
+                        return <div className='m-r-5' key={subjectId}>{subjectOptionsMap[subjectId].name}</div>
+                    })}
+                </div>
+            }
         },
     ]
     return (
