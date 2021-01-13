@@ -3,10 +3,14 @@ import './index.less';
 import { ChTablePanel, FormItemType } from 'ch-ui';
 import { Button, Tag } from 'antd';
 import { termType, TermType } from '@/config/common.data';
-
+import { ChUtils } from 'ch-ui'
+const { chHooks } = ChUtils
 
 
 export default () => {
+
+    const { options: gradeOptions } = chHooks.useOptionFormListHook({url:"/api/grade/list"})
+    const { options: subjectOptions } = chHooks.useOptionFormListHook({url:"/api/subject/list"})
 
     const columns = [
         {
@@ -21,11 +25,6 @@ export default () => {
             title: '标签名称',
             dataIndex: 'name',
             key: 'name',
-        },
-        {
-            title: '标签类别',
-            dataIndex: 'tagType',
-            key: 'tagType',
         },
         {
             title: '资源类目',
@@ -59,7 +58,6 @@ export default () => {
                       <ChTablePanel
                         onEditBefore={(item: any) => {
                           item.tagTypeId = record.id
-                          console.log(item);
                         }}
                         urlDelete='/api/tag/delete'
                         urlAdd='/api/tag/add'
@@ -76,10 +74,18 @@ export default () => {
                                 rules: [{ required: true, message: '请输名称' }],
                               },
                               {
-                                type: FormItemType.select,
-                                label: '名称2',
-                                name: 'name2',
-                                rules: [{ required: true, message: '请输名称' }],
+                                type: FormItemType.multipleSelect,
+                                label: '资源类目',
+                                name: 'gradeIds',
+                                options: gradeOptions,
+                                rules: [{ required: true, message: '请选择资源类目' }],
+                              },
+                              {
+                                type: FormItemType.multipleSelect,
+                                label: '资源类目',
+                                name: 'subjectIds',
+                                options: subjectOptions,
+                                rules: [{ required: true, message: '请选择资源类目' }],
                               }
                             ]
                           }
