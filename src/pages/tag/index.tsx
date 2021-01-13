@@ -45,7 +45,35 @@ export default () => {
                         name: 'name',
                         rules: [{ required: true, message: '请输入标签名称' }],
                     }]
+                } expandable={{
+                    expandedRowRender: (record: any) => <div>
+                        <ChTablePanel
+                            onAddBefore={(item: any) => {
+                                item.gradeId = record.id
+                                console.log(item);
+                            }}
+                            urlDelete='/api/tagType/delete'
+                            urlAdd='/api/tagType/add'
+                            urlUpdate='/api/tagType/edit'
+                            url='/api/tagType/page'
+                            query={{ tagTypeId: record.id }}
+                            columns={childColumns}
+                            formData={
+                                [
+                                    {
+                                        type: FormItemType.multipleSelect,
+                                        label: '名称',
+                                        name: 'name',
+                                        rules: [{ required: true, message: '请输入年级名称' }],
+                                    },
+                                ]
+                            }
+                        />
+                    </div>,
                 }
+                }
+
+
 
             />
         </div>
