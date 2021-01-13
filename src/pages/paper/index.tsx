@@ -8,6 +8,7 @@ const {chHooks} = ChUtils
 
 export default () => {
 
+  
   const { options: gradeOptions } = chHooks.useOptionFormListHook({url: 'http://api-paper.kukechen.top/api/grade/list'})
   const { options: gradeStepOptions } = chHooks.useOptionFormListHook({url: 'http://api-paper.kukechen.top/api/gradeStep/list'})
   
@@ -36,6 +37,10 @@ export default () => {
   return (
     <div>
       <ChTablePanel 
+            onEditBefore={(item)=>{
+                console.log('debug: 开始提交', item)
+                item.file = item.file[0].response.result
+            }}
             urlDelete='/api/paper/delete'
             urlAdd='/api/paper/add'
             urlUpdate='/api/paper/edit'
@@ -81,6 +86,7 @@ export default () => {
                           if(value[0].response)  {
                              if(value[0].response.status == 0) {
                                console.log('debug: 单文件上传成功！')
+                               return Promise.resolve();
                              }else {
                                callback('文件上传失败！');
                              }

@@ -9,7 +9,7 @@ export default defineConfig({
   //   { path: '/', component: '@/pages/index' },
   // ],
   styles: [
-    "http://at.alicdn.com/t/font_2306248_t492ab6hzxd.css"
+    "http://at.alicdn.com/t/font_2306248_2jnlso6p4uu.css"
   ],
   proxy: {
     '/api' : {

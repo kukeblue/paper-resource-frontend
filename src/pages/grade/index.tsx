@@ -10,7 +10,7 @@ export default () => {
 
   const columns = [
     {
-      title: '年级名称',
+      title: '类目',
       dataIndex: 'name',
       key: 'name',
     },
@@ -49,7 +49,7 @@ export default () => {
         expandable={{
           expandedRowRender: (record: any) => <div>
             <ChTablePanel
-              onAddBefore={(item: any) => {
+              onEditBefore={(item: any) => {
                 item.gradeId = record.id
                 console.log(item);
               }}

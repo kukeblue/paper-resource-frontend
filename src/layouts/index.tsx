@@ -17,7 +17,7 @@ export default function Layout({ children, location, route, history, match }: IR
             },
         },
         {
-            icon: <span className='paper_iconfont paper_iconnianjiguanli' />,
+            icon: <span className='paper_iconfont paper_iconshijuan' />,
             path: '/paper',
             text: '试卷管理',
             click: () => {
@@ -25,7 +25,7 @@ export default function Layout({ children, location, route, history, match }: IR
             },
         },
         {
-            icon: <span className='paper_iconfont paper_iconnianjiguanli' />,
+            icon: <span className='paper_iconfont paper_iconpingtai_kemu' />,
             path: '/subject',
             text: '学科管理',
             click: () => {
@@ -33,7 +33,7 @@ export default function Layout({ children, location, route, history, match }: IR
             },
         },
         {
-            icon: <span className='paper_iconfont paper_iconnianjiguanli' />,
+            icon: <span className='paper_iconfont paper_iconbiaoqian' />,
             path: '/tag',
             text: '标签管理',
             click: () => {
