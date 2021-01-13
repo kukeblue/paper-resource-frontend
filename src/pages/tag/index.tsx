@@ -52,7 +52,7 @@ export default () => {
                         label: '名称',
                         name: 'name',
                         rules: [{ required: true, message: '请输入标签名称' }],
-                }]
+                    }]
                 }
                 expandable={{
                     expandedRowRender: (record: any) => <div>
