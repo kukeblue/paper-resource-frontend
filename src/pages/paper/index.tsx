@@ -89,7 +89,7 @@ export default () => {
       render: (text: string, record: Paper) => {
         return (
           <div className="flex">
-            <div>{subjectOptionMap[text].name}</div>
+            <div>{subjectOptionMap[text] && subjectOptionMap[text].name}</div>
           </div>
         );
       },
