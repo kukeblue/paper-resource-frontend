@@ -129,20 +129,30 @@ export default () => {
     <div>
       <ChTablePanel
         onEditBefore={(item) => {
-          if (item.file instanceof Array) {
-            item.file = item.file[0].response.result[0];
-            const splitPath = item.file.split('/');
-            item.fileName = splitPath[splitPath.length - 1];
-            item.name = item.fileName.split('.')[0];
-            item.fileType = item.fileName.split('.')[1];
-            console.log('debug: 开始提交', item);
+          let results: string[] = [];
+          let hasError = false;
+          if (item.file) {
+            const { fileList } = item.file;
+            fileList.forEach((f: any) => {
+              if (f.response && f.response.status == 0) {
+                results.push(f.response.result[0]);
+              } else {
+                hasError = true;
+              }
+            });
+          }
+          if (hasError) {
+            return true;
+          } else {
+            delete item.file;
+            item.fileList = results;
           }
         }}
         onEditFormat={(item: any) => {
           item.file = [];
         }}
         urlDelete="/api/paper/delete"
-        urlAdd="/api/paper/add"
+        urlAdd="/api/paper/add_multiple"
         urlUpdate="/api/paper/edit"
         url="/api/paper/page"
         columns={columns}
@@ -198,8 +208,9 @@ export default () => {
                 message: '文件上传失败',
                 validator: (rule, value, callback) => {
                   try {
-                    if (value[0].response) {
-                      if (value[0].response.status == 0) {
+                    const { file } = value;
+                    if (file && file.response) {
+                      if (file.response.status == 0) {
                         console.log('debug: 单文件上传成功！');
                         return Promise.resolve();
                       } else {
