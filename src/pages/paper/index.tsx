@@ -38,6 +38,8 @@ export default () => {
     url: 'http://api-paper.kukechen.top/api/tag/list',
   });
 
+  console.log('tagOptionMap', tagOptions, tagOptionMap);
+
   const {
     options: subjectOptions,
     optionsMap: subjectOptionMap,

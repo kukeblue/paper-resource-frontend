@@ -46,14 +46,6 @@ export default function Layout({
         history.push('/tag');
       },
     },
-    {
-      icon: <span className="paper_iconfont paper_iconbiaoqian" />,
-      path: '/login',
-      text: '登录',
-      click: () => {
-        history.push('/login');
-      },
-    },
   ];
   useEffect(() => {
     const index = siderItemData.findIndex((item) => {
@@ -66,13 +58,12 @@ export default function Layout({
   }, [location.pathname]);
 
   useEffect(() => {
-    console.log('debug: isLogin', isLogin);
     if (!isLogin && !location.pathname.includes('login')) {
       history.replace('/login');
     }
   }, []);
 
-  return isLogin ? (
+  return !location.pathname.includes('login') ? (
     <ChLayout
       adminIcon={
         <div className="flex-center">
