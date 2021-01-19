@@ -65,24 +65,6 @@ export default () => {
       },
     },
     {
-      title: '文件地址',
-      dataIndex: 'file',
-      key: 'file',
-    },
-    {
-      title: '类目',
-      dataIndex: 'gradeId',
-      key: 'gradeId',
-      render: (text: string, record: object) => {
-        return <span>{gradeOptionMap[text] && gradeOptionMap[text].name}</span>;
-      },
-    },
-    {
-      title: '价格',
-      dataIndex: 'price',
-      key: 'price',
-    },
-    {
       title: '学科',
       dataIndex: 'subjectId',
       key: 'subjectId',
@@ -92,6 +74,14 @@ export default () => {
             <div>{subjectOptionMap[text] && subjectOptionMap[text].name}</div>
           </div>
         );
+      },
+    },
+    {
+      title: '类目',
+      dataIndex: 'gradeId',
+      key: 'gradeId',
+      render: (text: string, record: object) => {
+        return <span>{gradeOptionMap[text] && gradeOptionMap[text].name}</span>;
       },
     },
     {
@@ -105,6 +95,11 @@ export default () => {
           </span>
         );
       },
+    },
+    {
+      title: '地区',
+      dataIndex: 'region',
+      key: 'region',
     },
     {
       title: '标签',
@@ -123,6 +118,11 @@ export default () => {
           </div>
         );
       },
+    },
+    {
+      title: '价格',
+      dataIndex: 'price',
+      key: 'price',
     },
   ];
   return (
@@ -228,35 +228,41 @@ export default () => {
             type: FormItemType.input,
             label: '价格',
             name: 'price',
-            rules: [{ required: true, message: '请输入价格' }],
+            rules: [{ required: false, message: '请输入价格' }],
           },
           {
             type: FormItemType.select,
             label: '学科',
             name: 'subjectId',
             options: subjectOptions,
-            rules: [{ required: true, message: '请选择学科' }],
+            rules: [{ required: false, message: '请选择学科' }],
           },
           {
             type: FormItemType.select,
             label: '类目',
             name: 'gradeId',
             options: gradeOptions,
-            rules: [{ required: true, message: '请输入类目名称' }],
+            rules: [{ required: false, message: '请输入类目名称' }],
           },
           {
             type: FormItemType.select,
             label: '学期',
             name: 'gradeStepId',
             options: gradeStepOptions,
-            rules: [{ required: true, message: '请输入学期名称' }],
+            rules: [{ required: false, message: '请输入学期名称' }],
           },
           {
             type: FormItemType.multipleSelect,
             label: '标签',
             name: 'tagIds',
             options: tagOptions,
-            rules: [{ required: true, message: '请选择标签' }],
+            rules: [{ required: false, message: '请选择标签' }],
+          },
+          {
+            key: 'region',
+            type: FormItemType.regionSelect,
+            label: '请选择地区',
+            name: 'region',
           },
         ]}
       />
