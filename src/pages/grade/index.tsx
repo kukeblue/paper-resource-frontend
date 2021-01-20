@@ -19,6 +19,11 @@ export default () => {
       key: 'name',
     },
     {
+      title: '年级别名',
+      dataIndex: 'alias',
+      key: 'alias',
+    },
+    {
       title: '上下学期',
       dataIndex: 'term',
       key: 'term',
@@ -63,6 +68,12 @@ export default () => {
                     label: '名称',
                     name: 'name',
                     rules: [{ required: true, message: '请输入年级名称' }],
+                  },
+                  {
+                    type: FormItemType.input,
+                    label: '别名',
+                    name: 'alias',
+                    rules: [{ required: true, message: '请输入年级别名' }],
                   },
                   {
                     type: FormItemType.radioGroup,
