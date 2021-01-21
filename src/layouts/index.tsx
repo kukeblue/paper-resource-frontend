@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { IRouteComponentProps } from 'umi';
 import { ChLayout, ChUtils } from 'ch-ui';
-import { AxiosError } from 'axios'
+import { AxiosError } from 'axios';
 import { getObCache } from 'ch-ui/src/ChUtils/cache';
 import './index.less';
 
-
 // 去注册ajax错误处理的方法
-ChUtils.Ajax.RequestConfig.onError = (error: AxiosError)=> {
-    if(error?.response?.status == 401) {
-      console.log('登录过期了')
-      location.replace('/login')
-    }
-}
+ChUtils.Ajax.RequestConfig.onError = (error: AxiosError) => {
+  if (error?.response?.status == 401) {
+    console.log('登录过期了');
+    location.replace('/login');
+  }
+};
 
 export default function Layout({
   children,
@@ -54,6 +53,14 @@ export default function Layout({
       text: '标签管理',
       click: () => {
         history.push('/tag');
+      },
+    },
+    {
+      icon: <span className="paper_iconfont paper_iconbiaoqian" />,
+      path: '/order',
+      text: '订单管理',
+      click: () => {
+        history.push('/order');
       },
     },
   ];
