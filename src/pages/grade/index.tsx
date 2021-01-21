@@ -18,14 +18,6 @@ export default () => {
       dataIndex: 'name',
       key: 'name',
     },
-    {
-      title: '上下学期',
-      dataIndex: 'term',
-      key: 'term',
-      render: (text: string) => {
-        return <Tag>{(termType as any)[text]}</Tag>;
-      },
-    },
   ];
   return (
     <div>
@@ -63,17 +55,6 @@ export default () => {
                     label: '名称',
                     name: 'name',
                     rules: [{ required: true, message: '请输入年级名称' }],
-                  },
-                  {
-                    type: FormItemType.radioGroup,
-                    label: '学期',
-                    name: 'term',
-                    rules: [{ required: false, message: '请选择学期' }],
-                    options: [
-                      { label: '默认', value: '' },
-                      { label: '上学期', value: 'UP' },
-                      { label: '下学期', value: 'DOWN' },
-                    ],
                   },
                 ]}
               />
