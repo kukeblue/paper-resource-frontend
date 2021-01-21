@@ -46,6 +46,14 @@ export default function Layout({
         history.push('/tag');
       },
     },
+    {
+      icon: <span className="paper_iconfont paper_iconbiaoqian" />,
+      path: '/order',
+      text: '订单管理',
+      click: () => {
+        history.push('/order');
+      },
+    },
   ];
   useEffect(() => {
     const index = siderItemData.findIndex((item) => {
