@@ -24,8 +24,9 @@
     "@ant-design/pro-layout": "^6.5.0",
     "@umijs/preset-react": "1.x",
     "antd": "^4.9.4",
-    "umi": "^3.3.3",
-    "ch-ui": "file:../chr-component"
+    "ch-ui": "file:../chr-component",
+    "hox": "^1.1.2",
+    "umi": "^3.3.3"
   },
   "devDependencies": {
     "@types/react": "^16.9.0",

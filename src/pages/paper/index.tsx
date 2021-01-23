@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, MutableRefObject, useEffect } from 'react';
 import './index.less';
 import { ChTablePanel, FormItemType, ChUtils, ChForm } from 'ch-ui';
-import { Modal, Upload, Button, message } from 'antd'
+import { Modal, Upload, Button, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { getObCache } from 'ch-ui/src/ChUtils/cache';
+import { createModel } from 'hox';
+
+function usePageCounter() {
+  const tableRef: MutableRefObject<any> = useRef();
+  const [showImportPaper, setShowImportPaper] = useState(false);
+  return {
+    tableRef,
+    showImportPaper,
+    setShowImportPaper,
+  };
+}
+
+const usePageCounterModel = createModel(usePageCounter);
 
 interface Paper {
   id: string;
@@ -18,47 +31,71 @@ interface Paper {
   subjectId: string;
 }
 const { chHooks } = ChUtils;
+
 // @type React Compontent | @dec 弹出智能上传
 export const UploadModal = () => {
+  const {
+    showImportPaper,
+    setShowImportPaper,
+    tableRef,
+  } = usePageCounterModel();
+  const [uploadNumber, setUploadNumber] = useState(0);
 
-    const [uploadNumber, setUploadNumber] = useState(0);
+  useEffect(() => {
+    setUploadNumber(0);
+  }, [showImportPaper]);
 
-    return <Modal 
-      visible={false}
+  return (
+    <Modal
+      destroyOnClose
+      onCancel={() => {
+        setShowImportPaper(false);
+        tableRef.current.reload();
+      }}
+      onOk={() => {
+        setShowImportPaper(false);
+        tableRef.current.reload();
+      }}
+      visible={showImportPaper}
       footer={null}
     >
       <h3>快速导入试卷</h3>
-        <div className='m-t-20'>
-          <Upload
-              headers={{
-                Auth: getObCache('user') && getObCache('user').token
-              }}
-              multiple
-              name={'files'}
-              action={'/api/paper/smart_upload'}
-              onChange={(info) =>{
-                if (info.file.status !== 'uploading') {
-                  console.log(info.file, info.fileList);
-                }
-                if (info.file.status === 'done') {
-                  message.success(`${info.file.name}: 文件上传成功.`);
-                  setUploadNumber(uploadNumber + 1);
-                } else if (info.file.status === 'error') {
-                  message.error(`${info.file.name}: 文件上传失败.`);
-                }
-              }}
-            >
-              <Button icon={<UploadOutlined />}>点击文件</Button>
-          </Upload>
-        </div>
-        <div className='p-30'>
-            当前成功上传试卷<span className=''>{uploadNumber}</span>张  
-        </div>  
+      <div className="m-t-20">
+        <Upload
+          headers={{
+            Auth: getObCache('user') && getObCache('user').token,
+          }}
+          multiple
+          name={'files'}
+          action={'/api/paper/smart_upload'}
+          onChange={(info) => {
+            if (info.file.status !== 'uploading') {
+              console.log(info.file, info.fileList);
+            }
+            if (info.file.status === 'done') {
+              message.success(`${info.file.name}: 文件上传成功.`);
+              setUploadNumber(uploadNumber + 1);
+            } else if (info.file.status === 'error') {
+              message.error(`${info.file.name}: 文件上传失败.`);
+            }
+          }}
+        >
+          <Button icon={<UploadOutlined />}>点击文件</Button>
+        </Upload>
+      </div>
+      <div className="p-30">
+        当前成功上传试卷<span className="">{uploadNumber}</span>张
+      </div>
     </Modal>
-}
-
+  );
+};
 
 export default () => {
+  const {
+    showImportPaper,
+    setShowImportPaper,
+    tableRef,
+  } = usePageCounterModel();
   const {
     options: gradeOptions,
     optionsMap: gradeOptionMap,
@@ -148,9 +185,9 @@ export default () => {
           <div>
             {record.tagIds.map((tagId) => {
               return (
-                tagOptionMap[tagId] && <span key={tagId}>
-                  {tagOptionMap[tagId].name|| tagId }
-                </span>
+                tagOptionMap[tagId] && (
+                  <span key={tagId}>{tagOptionMap[tagId].name || tagId}</span>
+                )
               );
             })}
           </div>
@@ -165,15 +202,17 @@ export default () => {
   ];
   return (
     <div>
-      <UploadModal/>
+      <UploadModal />
       <ChTablePanel
+        ref={tableRef}
         actions={[
           {
             text: '直接导入试卷',
             onClick: () => {
-              
-            }
-          }
+              console.log('点击了action');
+              setShowImportPaper(true);
+            },
+          },
         ]}
         onEditBefore={(item) => {
           let results: string[] = [];

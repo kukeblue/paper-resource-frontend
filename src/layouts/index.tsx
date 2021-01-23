@@ -26,7 +26,7 @@ export default function Layout({
     {
       icon: <span className="paper_iconfont paper_iconnianjiguanli" />,
       path: '/grade',
-      text: '试卷阶段',
+      text: '学习阶段',
       click: () => {
         history.push('/grade');
       },
