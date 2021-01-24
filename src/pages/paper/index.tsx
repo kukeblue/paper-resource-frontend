@@ -5,6 +5,7 @@ import { Modal, Upload, Button, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { getObCache } from 'ch-ui/src/ChUtils/cache';
 import { createModel } from 'hox';
+import { Term, termType } from '@/config/common.data';
 
 function usePageCounter() {
   const tableRef: MutableRefObject<any> = useRef();
@@ -140,6 +141,11 @@ export default () => {
       },
     },
     {
+      title: '年份',
+      dataIndex: 'year',
+      key: 'year',
+    },
+    {
       title: '学科',
       dataIndex: 'subjectId',
       key: 'subjectId',
@@ -152,23 +158,28 @@ export default () => {
       },
     },
     {
-      title: '类目',
+      title: '年级',
       dataIndex: 'gradeId',
       key: 'gradeId',
-      render: (text: string, record: object) => {
-        return gradeOptionMap[text] && <span>{gradeOptionMap[text].name}</span>;
+      render: (text: string, record: any) => {
+        return (
+          gradeOptionMap[text] &&
+          gradeStepOptionMap[record.gradeStepId] && (
+            <div>
+              <span>{gradeOptionMap[text].name}/</span>
+              <span>{gradeStepOptionMap[record.gradeStepId].name}/</span>
+              <span>{termType[record.term]}</span>
+            </div>
+          )
+        );
       },
     },
     {
       title: '学期',
-      dataIndex: 'gradeStepId',
-      key: 'gradeStepId',
-      render: (text: string, record: object) => {
-        return (
-          <span>
-            {gradeStepOptionMap[text] && gradeStepOptionMap[text].name}
-          </span>
-        );
+      dataIndex: 'term',
+      key: 'term',
+      render: (text: string, record: any) => {
+        return <div>{termType[text]}</div>;
       },
     },
     {
@@ -258,13 +269,25 @@ export default () => {
             name: 'gradeId',
             options: gradeOptions,
           },
+
+          {
+            placeholder: '请选择年级',
+            layout: { span: 4, offset: 1 },
+            type: FormItemType.select,
+            label: '年级',
+            name: 'gradeStepId',
+            options: gradeStepOptions,
+          },
           {
             placeholder: '请选择学期',
             layout: { span: 4, offset: 1 },
             type: FormItemType.select,
             label: '学期',
-            name: 'gradeStepId',
-            options: gradeStepOptions,
+            name: 'term',
+            options: [
+              { label: '上学期', value: 'UP' },
+              { label: '下学期', value: 'DOWN' },
+            ],
           },
           {
             placeholder: '请选择标签',
@@ -282,6 +305,9 @@ export default () => {
             name: 'file',
             uploadurl: '/api/paper/upload',
             uploadname: 'files',
+            uploadheader: {
+              Auth: getObCache('user') && getObCache('user').token,
+            },
             itemshow: (editor: Paper) => {
               if (editor.id) {
                 return false;
@@ -312,8 +338,8 @@ export default () => {
           },
           {
             type: FormItemType.input,
-            label: '价格',
-            name: 'price',
+            label: '年份',
+            name: 'year',
             rules: [{ required: false, message: '请输入价格' }],
           },
           {
@@ -332,9 +358,19 @@ export default () => {
           },
           {
             type: FormItemType.select,
-            label: '学期',
+            label: '年级',
             name: 'gradeStepId',
             options: gradeStepOptions,
+            rules: [{ required: false, message: '请输入学期名称' }],
+          },
+          {
+            type: FormItemType.select,
+            label: '学期',
+            name: 'term',
+            options: [
+              { label: '上学期', value: 'UP' },
+              { label: '下学期', value: 'DOWN' },
+            ],
             rules: [{ required: false, message: '请输入学期名称' }],
           },
           {
@@ -349,6 +385,12 @@ export default () => {
             type: FormItemType.regionSelect,
             label: '请选择地区',
             name: 'region',
+          },
+          {
+            type: FormItemType.input,
+            label: '价格',
+            name: 'price',
+            rules: [{ required: false, message: '请输入价格' }],
           },
         ]}
       />

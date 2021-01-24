@@ -11,8 +11,8 @@ export default defineConfig({
   styles: ['http://at.alicdn.com/t/font_2306248_2jnlso6p4uu.css'],
   proxy: {
     '/api': {
-      // target: "http://api-paper.kukechen.top",
-      target: 'http://127.0.0.1:8080',
+      target: 'http://api-paper.kukechen.top',
+      // target: 'http://127.0.0.1:8080',
       changeOrigin: true,
     },
   },
