@@ -4,6 +4,7 @@ import { ChLayout, ChUtils } from 'ch-ui';
 import { AxiosError } from 'axios';
 import { getObCache } from 'ch-ui/src/ChUtils/cache';
 import './index.less';
+import { Button } from 'antd';
 
 // 去注册ajax错误处理的方法
 ChUtils.Ajax.RequestConfig.onError = (error: AxiosError) => {
@@ -87,6 +88,12 @@ export default function Layout({
           <span className="paper_iconfont paper_iconxueyuan-fufeikecheng2"></span>
         </div>
       }
+      header={<div className='layout-header'><div className='relogin'>
+        <Button onClick={()=>{
+          localStorage.clear();
+          window.location.reload()
+        }}>注销</Button>
+      </div></div>}
       sider={{
         siderItems: siderItemData,
         currentItem: currentPathIndex,

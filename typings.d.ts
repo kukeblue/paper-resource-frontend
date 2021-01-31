@@ -9,6 +9,9 @@ declare module '*.svg' {
   export default url;
 }
 
+declare module 'Base64';
+
+
 interface ChResponse<T> {
   errorCode: string;
   errorMsg: string;

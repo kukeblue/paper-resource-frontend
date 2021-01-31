@@ -8,11 +8,18 @@ export default defineConfig({
   // routes: [
   //   { path: '/', component: '@/pages/index' },
   // ],
-  styles: ['http://at.alicdn.com/t/font_2306248_2jnlso6p4uu.css'],
+  
+  styles: ['https://at.alicdn.com/t/font_2306248_2jnlso6p4uu.css'],
+  scripts: [
+    'https://cdn.bootcdn.net/ajax/libs/Base64/1.1.0/base64.js',
+  ],
+  externals: {
+    "Base64": "Base64"
+  },
   proxy: {
     '/api': {
-      target: 'http://api-paper.kukechen.top',
-      // target: 'http://127.0.0.1:8080',
+      // target: 'https://api-paper.kukechen.top',
+      target: 'http://127.0.0.1:8080',
       changeOrigin: true,
     },
   },

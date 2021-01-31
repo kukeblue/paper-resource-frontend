@@ -26,6 +26,7 @@
     "antd": "^4.9.4",
     "ch-ui": "file:../chr-component",
     "hox": "^1.1.2",
+    "js-base64": "^3.6.0",
     "umi": "^3.3.3"
   },
   "devDependencies": {

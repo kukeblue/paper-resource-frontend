@@ -6,6 +6,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { getObCache } from 'ch-ui/src/ChUtils/cache';
 import { createModel } from 'hox';
 import { Term, termType } from '@/config/common.data';
+import { Base64 } from 'js-base64';
 
 function usePageCounter() {
   const tableRef: MutableRefObject<any> = useRef();
@@ -85,7 +86,6 @@ export const UploadModal = () => {
         </Upload>
       </div>
       <div className="p-30">
-        当前成功上传试卷<span className="">{uploadNumber}</span>张
       </div>
     </Modal>
   );
@@ -132,7 +132,7 @@ export default () => {
             target="_blank"
             href={
               'http://api-paperfile.kukechen.top/onlinePreview?url=' +
-              record.file
+              encodeURIComponent(Base64.encodeURI(record.file))
             }
           >
             {text}
