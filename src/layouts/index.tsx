@@ -10,16 +10,13 @@ import { Button } from 'antd';
 ChUtils.Ajax.RequestConfig.onError = (error: AxiosError) => {
   if (error?.response?.status == 401) {
     console.log('登录过期了');
-    location.replace('/login');
   }
 };
 
 export default function Layout({
   children,
   location,
-  route,
   history,
-  match,
 }: IRouteComponentProps) {
   const isLogin = getObCache('user');
   const [currentPathIndex, setCurrentPathIndex] = useState(1);

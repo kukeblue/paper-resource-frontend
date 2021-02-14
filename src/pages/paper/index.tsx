@@ -6,7 +6,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { getObCache } from 'ch-ui/src/ChUtils/cache';
 import { createModel } from 'hox';
 import { Term, termType } from '@/config/common.data';
-import { Base64 } from 'js-base64';
+import { formatFileSize } from '@/utils';
 
 function usePageCounter() {
   const tableRef: MutableRefObject<any> = useRef();
@@ -101,25 +101,25 @@ export default () => {
     options: gradeOptions,
     optionsMap: gradeOptionMap,
   } = chHooks.useOptionFormListHook({
-    url: 'http://api-paper.kukechen.top/api/grade/list',
+    url: 'https://api-paper.kukechen.top/api/grade/list',
   });
   const {
     options: gradeStepOptions,
     optionsMap: gradeStepOptionMap,
   } = chHooks.useOptionFormListHook({
-    url: 'http://api-paper.kukechen.top/api/gradeStep/list',
+    url: 'https://api-paper.kukechen.top/api/gradeStep/list',
   });
   const {
     options: tagOptions,
     optionsMap: tagOptionMap,
   } = chHooks.useOptionFormListHook({
-    url: 'http://api-paper.kukechen.top/api/tag/list',
+    url: 'https://api-paper.kukechen.top/api/tag/list',
   });
   const {
     options: subjectOptions,
     optionsMap: subjectOptionMap,
   } = chHooks.useOptionFormListHook({
-    url: 'http://api-paper.kukechen.top/api/subject/list',
+    url: 'https://api-paper.kukechen.top/api/subject/list',
   });
   const columns = [
     {
@@ -131,14 +131,30 @@ export default () => {
           <a
             target="_blank"
             href={
-              'http://api-paperfile.kukechen.top/onlinePreview?url=' +
-              encodeURIComponent(Base64.encodeURI(record.file))
+              'http://103.100.210.203:8012/onlinePreview?url=' +
+              // @ts-ignore
+              encodeURIComponent(Base64.encode(record.file))
             }
           >
             {text}
           </a>
         );
       },
+    },
+    {
+      title: '大小',
+      dataIndex: 'size',
+      key: 'size',
+      render:(text: string, record: any)=>{
+        return <div>
+          {formatFileSize(Number(text))}
+        </div>
+      },
+    },
+    {
+      title: '页数',
+      dataIndex: 'totalPage',
+      key: 'totalPage',
     },
     {
       title: '年份',
@@ -152,7 +168,7 @@ export default () => {
       render: (text: string, record: Paper) => {
         return (
           <div className="flex">
-            <div>{subjectOptionMap[text] && subjectOptionMap[text].name}</div>
+            <div>{subjectOptionMap[text]?.name}</div>
           </div>
         );
       },

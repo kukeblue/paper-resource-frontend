@@ -11,7 +11,7 @@ export default defineConfig({
   
   styles: ['https://at.alicdn.com/t/font_2306248_2jnlso6p4uu.css'],
   scripts: [
-    'https://cdn.bootcdn.net/ajax/libs/Base64/1.1.0/base64.js',
+    'https://api-paperfile.kukechen.top/js/base64.min.js',
   ],
   externals: {
     "Base64": "Base64"
